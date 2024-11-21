@@ -1,0 +1,106 @@
+/* ベーススタイル */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+ 
+/* ヘッダーのスタイル */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+ 
+header h1 {
+    margin: 0;
+}
+ 
+/* ナビゲーションのスタイル */
+nav {
+    margin-top: 10px;
+    background-color: #f1f1f1;
+    padding: 10px 0;
+    text-align: center;
+}
+ 
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #333;
+}
+ 
+nav a.active {
+    font-weight: bold;
+    color: #007bff;
+}
+ 
+/* メインコンテンツのスタイル */
+main {
+    padding: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+ 
+/* フォームのスタイル */
+form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3列に設定 */
+    gap: 20px;
+    overflow-y: auto; /* スクロール可能に */
+    max-height: 600px; /* 最大高さを指定 */
+}
+ 
+form div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* ラベルとセレクトボックス間のスペース */
+}
+ 
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+ 
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+ 
+/* 送信ボタン */
+.submit-button {
+    grid-column: span 3;
+    text-align: center;
+}
+ 
+button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 15px 30px; /* ボタンを大きく */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px; /* フォントサイズを大きく */
+}
+ 
+button:hover {
+    background-color: #c0392b;
+}
+ 
+/* レスポンシブ対応 */
+@media screen and (max-width: 768px) {
+    form {
+        grid-template-columns: 1fr; /* 小さい画面では1列に */
+    }
+ 
+    button {
+        width: 100%; /* ボタンを全幅に */
+    }
+}

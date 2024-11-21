@@ -11,6 +11,11 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     gender = db.Column(db.String(3), nullable=False)
+
+class Ingredient(db.Model):
+    id = db.Column(db.Integer, primary_key=True)     
+    name = db.Column(db.String(100), nullable=False)     
+    category = db.Column(db.String(50), nullable=False)
  
     # 必須属性を追加
     @property

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>食材マネージャー - 食材登録</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header>
+<h1>食材マネージャー</h1>
+<div>
+<span>ユーザー: {{ username }}</span>
+<a href="{{ url_for('views.logout') }}">ログアウト</a>
+</div>
+<nav>
+<a href="/">ホーム</a>
+<a href="/syokuzai" class="active">食材登録</a>
+<a href="/select">食材選択</a>
+<a href="/list">一覧</a>
+</nav>
+</header>
+ 
+<main>
+<h2>食材を追加してください</h2>
+<form method="POST" action="/syokuzai">
+<div>
+<label for="beef">牛肉</label>
+<select name="beef" id="beef">
+<option value="" disabled selected>選択してください</option>
+                {% for item in beef %}
+<option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+</select>
+</div>
+<div>
+<label for="pork">豚肉</label>
+<select name="pork" id="pork">
+<option value="" disabled selected>選択してください</option>
+                {% for item in pork %}
+<option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+</select>
+</div>
+<div>
+<label for="chicken">鶏肉</label>
+<select name="chicken" id="chicken">
+<option value="" disabled selected>選択してください</option>
+                {% for item in chicken %}
+<option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+</select>
+</div>
+<div>
+<label for="othermeat">その他の肉</label>
+<select name="othermeat" id="othermeat">
+<option value="" disabled selected>選択してください</option>
+                {% for item in othermeat %}
+<option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+</select>
+</div>
+<div>
+<label for="vegetables">野菜</label>
+<select name="vegetables" id="vegetables">
+<option value="" disabled selected>選択してください</option>
+                {% for item in vegetables %}
+<option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+</select>
+</div>
+<div>
+<label for="mashroom">きのこ</label>
+<select name="mashroom" id="mashroom">
+<option value="" disabled selected>選択してください</option>
+                {% for item in mashroom %}
+<option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+</select>
+</div>
+<div>
+<label for="seafood">魚介</label>
+<select name="seafood" id="seafood">
+<option value="" disabled selected>選択してください</option>
+                {% for item in seafood %}
+<option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+</select>
+</div>
+<div>
+<label for="egg">卵・乳製品</label>
+<select name="egg" id="egg">
+<option value="" disabled selected>選択してください</option>
+                {% for item in egg %}
+<option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+</select>
+</div>
+<div>
+<label for="beans">豆・芋</label>
+<select name="beans" id="beans">
+<option value="" disabled selected>選択してください</option>
+                {% for item in beans %}
+<option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+</select>
+</div>
+<div>
+<label for="bread">米・穀・パン</label>
+<select name="bread" id="bread">
+<option value="" disabled selected>選択してください</option>
+                {% for item in bread %}
+<option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+</select>
+</div>
+<div>
+<label for="fruit">果物</label>
+<select name="fruit" id="fruit">
+<option value="" disabled selected>選択してください</option>
+                {% for item in fruit %}
+<option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+</select>
+</div>
+<div>
+<label for="other">その他</label>
+<select name="other" id="other">
+<option value="" disabled selected>選択してください</option>
+                {% for item in other %}
+<option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+</select>
+</div>
+<div class="submit-button">
+<button type="submit">登録</button>
+</div>
+</form>
+</main>
+</body>
+</html>

@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User
+from models import db, User, Ingredient
+
  
 # Flask Blueprint 定義
 views = Blueprint('views', __name__)
@@ -62,7 +63,37 @@ def login():
             flash('メールアドレスまたはパスワードが間違っています。', 'danger')
  
     return render_template('login.html')
+
+@views.route('/syokuzai', methods=['GET', 'POST'])
+@login_required
+def syokuzai():
+    if request.method == 'POST':
+        # POSTデータの処理
+        selected_beef = request.form.get("beef")
+        selected_pork = request.form.get("pork")
+        selected_chicken = request.form.get("chicken")
+        flash(f"登録された食材: {selected_beef}, {selected_pork}, {selected_chicken}", 'success')
+        return redirect(url_for('views.syokuzai'))
  
+    # データベースから食材データを取得
+    beef = Ingredient.query.filter_by(category="牛肉").all()
+    pork = Ingredient.query.filter_by(category="豚肉").all()
+    chicken = Ingredient.query.filter_by(category="鶏肉").all()
+ 
+    # データをテンプレートに渡す
+    return render_template(
+        'syokuzai.html',
+        beef=beef,
+        pork=pork,
+        chicken=chicken
+    )
+ 
+# POST後の確認用エンドポイント
+@views.route('/confirmation')
+@login_required
+def confirmation():
+    return render_template('confirmation.html')
+
 # ログアウト
 @views.route('/logout')
 @login_required
