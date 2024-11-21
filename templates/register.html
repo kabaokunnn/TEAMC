@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>新規登録</title>
+</head>
+<body>
+<h2>新規登録</h2>
+<form method="POST">
+<label>ユーザー名:</label>
+<input type="text" name="username" required>
+<br>
+<label>メールアドレス:</label>
+<input type="email" name="email" required>
+<br>
+<label>パスワード:</label>
+<input type="password" name="password" required>
+<br>
+<label>年齢:</label>
+<select name="age">
+
+            {% for i in range(20, 81) %}
+<option value="{{ i }}">{{ i }}</option>
+
+            {% endfor %}
+</select>
+<br>
+<label>性別:</label>
+<select name="gender">
+<option value="M">男性</option>
+<option value="F">女性</option>
+<option value="O">その他</option>
+</select>
+<br>
+<button type="submit">登録</button>
+</form>
+<a href="{{ url_for('views.login') }}">ログインはこちら</a>
+</body>
+</html>
+
+ 

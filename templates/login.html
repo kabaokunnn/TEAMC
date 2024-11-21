@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ログイン</title>
+</head>
+<body>
+<h2>ログイン</h2>
+<form method="POST">
+<label>メールアドレス:</label>
+<input type="text" name="email" required>
+<br>
+<label>パスワード:</label>
+<input type="password" name="password" required>
+<br>
+<button type="submit">ログイン</button>
+</form>
+<a href="{{ url_for('views.register') }}">新規登録はこちら</a>
+</body>
+</html>
