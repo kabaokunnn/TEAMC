@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_migrate import Migrate
 from views import views
 from models import db
  
@@ -14,6 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://0623:0623@localhost/use
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 # 初期化
+migrate = Migrate(app, db)
 db.init_app(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)

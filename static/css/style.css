@@ -6,14 +6,6 @@ body {
     background-color: #f9f9f9;
 }
  
-/* ヘッダーのスタイル */
-header {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-}
- 
 header h1 {
     margin: 0;
 }
@@ -29,12 +21,11 @@ nav {
 nav a {
     margin-right: 15px;
     text-decoration: none;
-    color: #333;
 }
  
 nav a.active {
     font-weight: bold;
-    color: #007bff;
+    color: #a15009;
 }
  
 /* メインコンテンツのスタイル */

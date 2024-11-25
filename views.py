@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User, Ingredient
-
+from models import db, User, Ingredient, SelectedIngredient
  
 # Flask Blueprint 定義
 views = Blueprint('views', __name__)
@@ -63,37 +62,98 @@ def login():
             flash('メールアドレスまたはパスワードが間違っています。', 'danger')
  
     return render_template('login.html')
-
+ 
+# 食材登録ページ
 @views.route('/syokuzai', methods=['GET', 'POST'])
 @login_required
 def syokuzai():
     if request.method == 'POST':
         # POSTデータの処理
-        selected_beef = request.form.get("beef")
-        selected_pork = request.form.get("pork")
-        selected_chicken = request.form.get("chicken")
-        flash(f"登録された食材: {selected_beef}, {selected_pork}, {selected_chicken}", 'success')
-        return redirect(url_for('views.syokuzai'))
+        selected_ingredients = request.form.getlist('ingredients')
+ 
+        # 選択された食材をデータベースに保存
+        for ingredient_id in selected_ingredients:
+            ingredient = Ingredient.query.get(ingredient_id)
+            if ingredient:
+                selected_ingredient = SelectedIngredient(user_id=current_user.id, ingredient_id=ingredient.id)
+                db.session.add(selected_ingredient)
+        db.session.commit()
+ 
+        flash('選択された食材を保存しました！', 'success')
+        return redirect(url_for('views.list_syokuzai'))  # 登録後に list_syokuzai.html に遷移
  
     # データベースから食材データを取得
     beef = Ingredient.query.filter_by(category="牛肉").all()
     pork = Ingredient.query.filter_by(category="豚肉").all()
     chicken = Ingredient.query.filter_by(category="鶏肉").all()
+    other_meat = Ingredient.query.filter_by(category="その他の肉").all()
+    vegetables = Ingredient.query.filter_by(category="野菜").all()
+    mushrooms = Ingredient.query.filter_by(category="きのこ").all()
+    seafood = Ingredient.query.filter_by(category="魚介").all()
+    eggs_dairy = Ingredient.query.filter_by(category="卵・乳製品").all()
+    beans_tubers = Ingredient.query.filter_by(category="豆・芋").all()
+    grains_bread = Ingredient.query.filter_by(category="米・穀・パン").all()
+    fruits = Ingredient.query.filter_by(category="果物").all()
+    other = Ingredient.query.filter_by(category="その他").all()
+
  
     # データをテンプレートに渡す
     return render_template(
         'syokuzai.html',
         beef=beef,
         pork=pork,
-        chicken=chicken
+        chicken=chicken,
+        other_meat=other_meat,
+        vegetables=vegetables,
+        mushrooms=mushrooms,
+        seafood=seafood,
+        eggs_dairy=eggs_dairy,
+        beans_tubers=beans_tubers,
+        grains_bread=grains_bread,
+        fruits=fruits,
+        other=other
     )
  
-# POST後の確認用エンドポイント
+# 登録完了ページ
 @views.route('/confirmation')
 @login_required
 def confirmation():
     return render_template('confirmation.html')
+ 
+# 食材一覧ページ (登録した食材を表示)
+@views.route('/list_syokuzai', methods=['GET', 'POST'])
+@login_required
+def list_syokuzai():
+    # ユーザーが選んだ食材を取得
+    selected_ingredients = SelectedIngredient.query.filter_by(user_id=current_user.id).all()
+    return render_template('list_syokuzai.html', selected_ingredients=selected_ingredients)
 
+@views.route('/recipe', methods=['GET', 'POST'])
+@login_required
+def recipe():
+    if request.method == 'POST':
+        selected_items = request.form.getlist('selected_items')  # チェックボックスで選択された食材ID
+        
+        # 既存の選択食材を削除（必要な場合）
+        SelectedIngredient.query.filter_by(user_id=current_user.id).delete()
+
+        # 新たに選択された食材を保存
+        for item_id in selected_items:
+            selected_ingredient = SelectedIngredient(user_id=current_user.id, ingredient_id=item_id)
+            db.session.add(selected_ingredient)
+
+        # 保存処理を確定
+        db.session.commit()
+
+        # 保存後にrecipe.htmlにリダイレクト
+        return redirect(url_for('views.recipe'))
+
+    # GETメソッドでアクセスされた場合、登録した食材を表示
+    selected_ingredients = SelectedIngredient.query.filter_by(user_id=current_user.id).all()
+    return render_template('recipe.html', selected_ingredients=selected_ingredients)
+
+
+ 
 # ログアウト
 @views.route('/logout')
 @login_required

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>食材マネージャー - 登録した食材</title>
+</head>
+<body>
+    <h2>登録した食材</h2>
+    <form method="POST" action="/recipe">
+        {% for selected in selected_ingredients %}
+        <div>
+            <input type="checkbox" name="selected_items" value="{{ selected.id }}" checked>
+            <label>{{ selected.ingredient.name }}</label>
+        </div>
+        {% endfor %}
+        <button type="submit">保存</button>
+    </form>
+</body>
+</html>
