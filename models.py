@@ -26,9 +26,6 @@ class SelectedIngredient(db.Model):
     # ingredientテーブルのcategoryを参照
     ingredient = db.relationship('Ingredient', backref='selected_ingredients', lazy=True)
     user = db.relationship('User', backref='selected_ingredients', lazy=True)
-
-
-
  
 # 必須属性を追加
 @property
