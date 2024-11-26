@@ -145,7 +145,7 @@ def recipe():
         db.session.commit()
 
         # 保存後に「食材選択」画面にリダイレクト（または他の適切なページ）
-        return redirect(url_for('views.list_syokuzai'))  # ここをリダイレクト先に変更
+        return redirect(url_for('views.recipe'))  # ここをリダイレクト先に変更
 
     # GETリクエスト時には食材選択フォームを表示
     selected_ingredients = SelectedIngredient.query.filter_by(user_id=current_user.id).all()

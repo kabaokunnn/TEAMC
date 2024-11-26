@@ -22,7 +22,7 @@
         {% for selected in selected_ingredients %}
         <div>
             <!-- ingredient_id を使用 -->
-            <input type="checkbox" name="selected_items" value="{{ selected.ingredient.id }}" checked>
+            <input type="checkbox" name="selected_items" value="{{ selected.ingredient.ingredient_id }}" checked>
             <label>{{ selected.ingredient.name }}</label>
         </div>
         {% endfor %}
