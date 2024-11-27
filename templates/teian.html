@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>レシピ提案</title>
+</head>
+<body>
+    <h1>あなたへのレシピ提案</h1>
+    <div>
+        {% for recipe in recipe_suggestions %}
+            <div class="recipe-box">
+                <!-- 改行を <br> に変換して表示 -->
+                {{ recipe|replace("\n", "<br>")|safe }}
+            </div>
+        {% endfor %}
+    </div>
+    <a href="{{ url_for('views.syokuzai') }}">食材選択に戻る</a>
+</body>
+</html>

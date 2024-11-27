@@ -1,141 +1,47 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>食材マネージャー - 食材登録</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>食材マネージャー - 食材登録</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 <header>
-<h1>食材マネージャー</h1>
-<div>
-<span>ユーザー: {{ username }}</span>
-<a href="{{ url_for('views.logout') }}">ログアウト</a>
-</div>
-<nav>
-<a href="/">ホーム</a>
-<a href="/syokuzai" class="active">食材登録</a>
-<a href="/list_syokuzai">レシピ選択</a>
-<a href="/list">一覧</a>
-</nav>
+    <h1>食材マネージャー</h1>
+    <div>
+        <span>ユーザー: {{ username }}</span>
+        <a href="{{ url_for('views.logout') }}">ログアウト</a>
+    </div>
+    <nav>
+        <a href="/">ホーム</a>
+        <a href="/syokuzai" class="active">食材登録</a>
+        <a href="/list_syokuzai">レシピ選択</a>
+        <a href="/list">一覧</a>
+    </nav>
 </header>
- 
+
 <main>
-<h2>食材を追加してください</h2>
-<form method="POST" action="/syokuzai">
-<div>
-<label for="beef">牛肉</label>
-<select name="ingredients" id="beef">
-<option value="" disabled selected>選択してください</option>
-                {% for item in beef %}
-<option value="{{ item.id }}">{{ item.name }}</option>
+    <h2>食材を追加してください</h2>
+
+    <form method="POST" action="/syokuzai">
+        <!-- 動的にカテゴリを生成 -->
+        {% for category, items in categories.items() %}
+        <div>
+            <label for="{{ category }}">{{ category }}</label>
+            <select name="ingredients" id="{{ category }}">
+                <option value="" disabled selected>選択してください</option>
+                {% for item in items %}
+                <option value="{{ item.id }}">{{ item.name }}</option>
                 {% endfor %}
-</select>
-</div>
-<div>
-<label for="pork">豚肉</label>
-<select name="ingredients" id="pork">
-<option value="" disabled selected>選択してください</option>
-                {% for item in pork %}
-<option value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-</select>
-</div>
-<div>
-<label for="chicken">鶏肉</label>
-<select name="ingredients" id="chicken">
-<option value="" disabled selected>選択してください</option>
-                {% for item in chicken %}
-<option value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-</select>
-</div>
-<div>
-<label for="othermeat">その他の肉</label>
-<select name="ingredients" id="othermeat">
-<option value="" disabled selected>選択してください</option>
-                {% for item in other_meat %}
-<option value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-</select>
-</div>
-<div>
-<label for="vegetables">野菜</label>
-<select name="ingredients" id="vegetables">
-<option value="" disabled selected>選択してください</option>
-                {% for item in vegetables %}
-<option value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-</select>
-</div>
-<div>
-<label for="mushrooms">きのこ</label>
-<select name="ingredients" id="mushrooms">
-<option value="" disabled selected>選択してください</option>
-                {% for item in mushrooms %}
-<option value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-</select>
-</div>
-<div>
-<label for="seafood">魚介</label>
-<select name="ingredients" id="seafood">
-<option value="" disabled selected>選択してください</option>
-                {% for item in seafood %}
-<option value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-</select>
-</div>
-<div>
-<label for="eggs_dairy">卵・乳製品</label>
-<select name="ingredients" id="eggs_dairy">
-<option value="" disabled selected>選択してください</option>
-                {% for item in eggs_dairy %}
-<option value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-</select>
-</div>
-<div>
-<label for="beans_tubers">豆・芋</label>
-<select name="ingredients" id="beans_tubers">
-<option value="" disabled selected>選択してください</option>
-                {% for item in beans_tubers %}
-<option value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-</select>
-</div>
-<div>
-<label for="grains_bread">米・穀・パン</label>
-<select name="ingredients" id="grains_bread">
-<option value="" disabled selected>選択してください</option>
-                {% for item in grains_bread %}
-<option value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-</select>
-</div>
-<div>
-<label for="fruits">果物</label>
-<select name="ingredients" id="fruits">
-<option value="" disabled selected>選択してください</option>
-                {% for item in fruits %}
-<option value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-</select>
-</div>
-<div>
-<label for="other">その他</label>
-<select name="ingredients" id="other">
-<option value="" disabled selected>選択してください</option>
-                {% for item in other %}
-<option value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-</select>
-</div>
-<div class="submit-button">
-<button type="submit">登録</button>
-</div>
-</form>
+            </select>
+        </div>
+        {% endfor %}
+
+        <div class="submit-button">
+            <button type="submit">登録</button>
+        </div>
+    </form>
 </main>
 </body>
 </html>

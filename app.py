@@ -5,7 +5,11 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from views import views
 from models import db
- 
+from dotenv import load_dotenv
+import os
+import google.generativeai as genai
+
+
 # Flask アプリケーションの設定
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -36,3 +40,10 @@ if __name__ == '__main__':
         db.create_all()
         print("Database tables created")
     app.run(debug=True)
+
+load_dotenv()
+# GEMINI_API_KEY を環境変数から取得 
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+
+# Gemini API の設定
+genai.configure(api_key=GEMINI_API_KEY)

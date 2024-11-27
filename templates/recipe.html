@@ -3,30 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>食材マネージャー - 登録した食材</title>
+    <title>レシピ提案</title>
 </head>
 <body>
-    <div>
-        <span>ユーザー: {{ username }}</span>
-        <a href="{{ url_for('views.logout') }}">ログアウト</a>
-    </div>
-    <nav>
-        <a href="/">ホーム</a>
-        <a href="/syokuzai">食材登録</a>
-        <a href="/list_syokuzai">食材選択</a>
-        <a href="#">一覧</a>
-    </nav>
-
-    <h2>登録した食材</h2>
-    <form method="POST" action="/recipe">
+    <h1>レシピ提案</h1>
+    <form method="POST" action="/teian">
         {% for selected in selected_ingredients %}
         <div>
-            <!-- ingredient_id を使用 -->
-            <input type="checkbox" name="selected_items" value="{{ selected.ingredient.ingredient_id }}" checked>
+            <input type="checkbox" name="selected_items" value="{{ selected.ingredient.id }}">
             <label>{{ selected.ingredient.name }}</label>
         </div>
         {% endfor %}
-        <button type="submit">提案</button>
+        <button type="submit">提案を見る</button>
     </form>
 </body>
 </html>
