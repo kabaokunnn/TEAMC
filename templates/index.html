@@ -23,12 +23,16 @@
 <section>
 <div class="column">
 <h3>登録した食材</h3>
+{% if selected_ingredients %}
     {% for selected in selected_ingredients %}
     <div>
         <input type="hidden" name="selected_items" value="{{ selected.ingredient.id }}">
         <label>{{ selected.ingredient.name }}</label>
     </div>
     {% endfor %}
+{% else %}
+    <p>登録した食材がありません</p>
+{% endif %}
 </div>
 <div class="column">
 <h3>お気に入り料理</h3>
