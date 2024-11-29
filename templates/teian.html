@@ -2,18 +2,45 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>レシピ提案</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>あなたへのレシピ提案</h1>
-    <div>
-        {% for recipe in recipe_suggestions %}
-            <div class="recipe-box">
-                <!-- 改行を <br> に変換して表示 -->
-                {{ recipe|replace("\n", "<br>")|safe }}
+    <header>
+        <h1>提案されたレシピ</h1>
+        <div>
+            <span>ユーザー: {{ username }}</span>
+            <a href="{{ url_for('views.logout') }}">ログアウト</a>
+        </div>
+    </header>
+    <nav>
+        <a href="/" class="active">ホーム</a>
+        <a href="/syokuzai">食材登録</a>
+        <a href="/list_syokuzai">食材選択</a>
+        <a href="/history">一覧</a>
+        </nav>
+    <main>
+        <div class="recipe-container">
+            {% for recipe in recipe_suggestions.split("\n\n") if recipe.strip() %}
+            <div class="recipe-card">
+                {% set lines = recipe.split("\n") %}
+                <h3>{{ lines[0] }}</h3> <!-- レシピタイトル -->
+                {% for line in lines[1:] %}
+                    {% if line.startswith('**材料:**') or line.startswith('**作り方:**') %}
+                        <p class="section-title"><strong>{{ line[2:-2] }}</strong></p> <!-- 「材料」と「作り方」を強調 -->
+                    {% else %}
+                        <p>{{ line }}</p>
+                    {% endif %}
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
-    <a href="{{ url_for('views.syokuzai') }}">食材選択に戻る</a>
+            {% endfor %}
+        </div>
+
+        <!-- HOMEに戻るボタン -->
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{{ url_for('views.home') }}" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">HOMEに戻る</a>
+        </div>
+    </main>
 </body>
 </html>

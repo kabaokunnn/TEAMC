@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>履歴</title>
+</head>
+<body>
+<header>
+    <h1>履歴</h1>
+    <div>
+        <span>ユーザー: {{ username }}</span>
+        <a href="{{ url_for('views.logout') }}">ログアウト</a>
+    </div>
+    <nav>
+        <a href="{{ url_for('views.home') }}">ホーム</a>
+        <a href="{{ url_for('views.syokuzai') }}">材料登録</a>
+        <a href="{{ url_for('views.list_syokuzai') }}">レシピ提案</a>
+        <a href="{{ url_for('views.history') }}" class="active">履歴</a>
+    </nav>
+</header>
+<main>
+    <h2>履歴一覧</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>料理名</th>
+                <th>日付</th>
+                <th>お気に入り</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recipe in recipes %}
+            <tr>
+                <td>{{ recipe.recipe_name }}</td>
+                <td>{{ recipe.date_added }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('views.history') }}">
+                        <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
+                        <input type="checkbox" name="is_favorite" {% if recipe.is_favorite %}checked{% endif %} onchange="this.form.submit()">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

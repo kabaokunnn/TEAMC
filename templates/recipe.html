@@ -4,7 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>レシピ提案</title>
+    <h1>食材マネージャー</h1>
+    <div>
+        <span>ユーザー: {{ username }}</span>
+        <a href="{{ url_for('views.logout') }}">ログアウト</a>
+    </div>
 </head>
+<nav>
+    <a href="/">ホーム</a>
+    <a href="/syokuzai">食材登録</a>
+    <a href="/list_syokuzai">食材選択</a>
+    <a href="/history">一覧</a>
+</nav>
 <body>
     <h1>レシピ提案</h1>
     <form method="POST" action="/teian">

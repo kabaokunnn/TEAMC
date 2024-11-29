@@ -85,6 +85,160 @@ button:hover {
     background-color: #c0392b;
 }
  
+/* レシピ提案のカードスタイル */
+.recipe-container {
+    display: flex;
+    flex-wrap: wrap; /* 横に並べて、スペースが足りない場合は折り返し */
+    gap: 20px; /* カード間のスペース */
+    justify-content: center; /* カードを中央揃え */
+    padding: 20px;
+}
+ 
+.recipe-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px; /* カードの幅 */
+    padding: 15px;
+    text-align: left; /* テキストを左揃え */
+    display: flex;
+    flex-direction: column; /* 内容を縦に配置 */
+}
+ 
+.recipe-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+ 
+.recipe-card h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #333;
+}
+ 
+.recipe-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    white-space: pre-wrap; /* 改行を反映 */
+}
+ 
+/* 「材料」と「作り方」のセクションタイトル */
+.section-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #333;
+}
+ 
+/* レスポンシブ対応 */
+@media screen and (max-width: 768px) {
+    form {
+        grid-template-columns: 1fr; /* 小さい画面では1列に */
+    }
+ 
+    button {
+        width: 100%; /* ボタンを全幅に */
+    }
+}
+ 
+ 
+
+
+
+
+/* ベーススタイル */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+ 
+header h1 {
+    margin: 0;
+}
+ 
+/* ナビゲーションのスタイル */
+nav {
+    margin-top: 10px;
+    background-color: #f1f1f1;
+    padding: 10px 0;
+    text-align: center;
+}
+ 
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+}
+ 
+nav a.active {
+    font-weight: bold;
+    color: #a15009;
+}
+ 
+/* メインコンテンツのスタイル */
+main {
+    padding: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+ 
+/* フォームのスタイル */
+form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3列に設定 */
+    gap: 20px;
+    overflow-y: auto; /* スクロール可能に */
+    max-height: 600px; /* 最大高さを指定 */
+}
+ 
+form div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* ラベルとセレクトボックス間のスペース */
+}
+ 
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+ 
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+ 
+/* 送信ボタン */
+.submit-button {
+    grid-column: span 3;
+    text-align: center;
+}
+ 
+button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 15px 30px; /* ボタンを大きく */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px; /* フォントサイズを大きく */
+}
+ 
+button:hover {
+    background-color: #c0392b;
+}
+ 
 /* レスポンシブ対応 */
 @media screen and (max-width: 768px) {
     form {

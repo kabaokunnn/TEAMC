@@ -17,15 +17,30 @@
 <a href="/" class="active">ホーム</a>
 <a href="/syokuzai">食材登録</a>
 <a href="/list_syokuzai">食材選択</a>
-<a href="#">一覧</a>
+<a href="/history">一覧</a>
 </nav>
 <main>
 <section>
 <div class="column">
 <h3>登録した食材</h3>
+    {% for selected in selected_ingredients %}
+    <div>
+        <input type="hidden" name="selected_items" value="{{ selected.ingredient.id }}">
+        <label>{{ selected.ingredient.name }}</label>
+    </div>
+    {% endfor %}
 </div>
 <div class="column">
-<h3>最近作った料理</h3>
+<h3>お気に入り料理</h3>
+{% if favorite_recipes %}
+        {% for recipe in favorite_recipes %}
+            <div>
+                <label>{{ recipe.recipe_name }}</label>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>お気に入りのレシピはありません。</p>
+    {% endif %}
 </div>
 </section>
 </main>
