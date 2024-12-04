@@ -3,39 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <title>新規登録</title>
+<style>
+  body {
+    font-family: 'Comic Sans MS', sans-serif;
+    background: linear-gradient(45deg, #cde2ff, #b3d0ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #000;
+    animation: rotate 2s infinite linear;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+  }
+
+  input[type="text"], input[type="email"], input[type="password"], select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 2px solid rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #000;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #1a11cb;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+    background-color: #2575fc;
+  }
+
+  a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  a:hover {
+    color: cornflowerblue;
+    text-decoration: underline;
+  }
+
+  .register-container {
+    max-width: 300px;
+    width: 90%;
+    padding: 15px;
+    background: transparent;
+    border-radius: 10px;
+    box-shadow: none;
+  }
+</style>
 </head>
 <body>
-<h2>新規登録</h2>
-<form method="POST">
-<label>ユーザー名:</label>
-<input type="text" name="username" required>
-<br>
-<label>メールアドレス:</label>
-<input type="email" name="email" required>
-<br>
-<label>パスワード:</label>
-<input type="password" name="password" required>
-<br>
-<label>年齢:</label>
-<select name="age">
-
-            {% for i in range(20, 81) %}
-<option value="{{ i }}">{{ i }}</option>
-
-            {% endfor %}
-</select>
-<br>
-<label>性別:</label>
-<select name="gender">
-<option value="M">男性</option>
-<option value="F">女性</option>
-<option value="O">その他</option>
-</select>
-<br>
-<button type="submit">登録</button>
-</form>
-<a href="{{ url_for('views.login') }}">ログインはこちら</a>
+<div class="register-container">
+  <h2>🎉 新規登録 🎉</h2>
+  <form method="POST">
+    <label>ユーザー名:</label>
+    <input type="text" name="username" required>
+    <label>メールアドレス:</label>
+    <input type="email" name="email" required>
+    <label>パスワード:</label>
+    <input type="password" name="password" required>
+    <label>年齢:</label>
+    <select name="age">
+      {% for i in range(20, 81) %}
+        <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+    </select>
+    <label>性別:</label>
+    <select name="gender">
+      <option value="M">男性</option>
+      <option value="F">女性</option>
+      <option value="O">その他</option>
+    </select>
+    <button type="submit">登録</button>
+  </form>
+  <a href="{{ url_for('views.login') }}">🔑 ログインはこちら</a>
+</div>
 </body>
 </html>
-
- 

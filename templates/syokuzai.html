@@ -4,26 +4,237 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>食材マネージャー - 食材登録</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+/* ベーススタイル */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; /* 薄い灰色 */
+    color: #333;
+}
+
+/* ヘッダー */
+header {
+    background-color: #d3e5ff; /* 明るい青 */
+    color: #333;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+}
+
+header h1 {
+    font-size: 36px;
+    margin: 0;
+    text-align: left;
+    flex-grow: 1;
+}
+
+header .user-info {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+header .user-info span {
+    margin-right: 15px;
+}
+
+header .user-info a {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+header .user-info a:hover {
+    text-decoration: underline;
+}
+
+/* ナビゲーション */
+nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #e8f0fe; /* 青 */
+    height: 70px;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+nav a {
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+    flex-grow: 1;
+    font-size: 18px;
+}
+
+nav a:hover {
+    background-color: #cde2ff; /* 明るい青 */
+}
+
+nav a.active {
+    background-color: #b3d0ff; /* 薄い緑 */
+    color: #333;
+}
+
+/* メインコンテンツ */
+main {
+    padding: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #1114cb; /* 明るい紫 */
+}
+
+/* フォーム */
+form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3列に設定 */
+    gap: 20px;
+    overflow-y: auto; /* スクロール可能に */
+    max-height: 600px; /* 最大高さを指定 */
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* ラベルとセレクトボックス間のスペース */
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+}
+
+/* 送信ボタン */
+.submit-button {
+    text-align: center;
+    grid-column: span 3;
+}
+
+.submit-button button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #b3d0ff; /* 緑 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button button:hover {
+    background-color: #b3d0ff;
+}
+
+/* レシピ提案のカードスタイル */
+.recipe-container {
+    display: flex;
+    flex-wrap: wrap; /* 横に並べて、スペースが足りない場合は折り返し */
+    gap: 20px; /* カード間のスペース */
+    justify-content: center; /* カードを中央揃え */
+    padding: 20px;
+}
+
+.recipe-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px; /* カードの幅 */
+    padding: 15px;
+    text-align: left; /* テキストを左揃え */
+    display: flex;
+    flex-direction: column; /* 内容を縦に配置 */
+}
+
+.recipe-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.recipe-card h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.recipe-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    white-space: pre-wrap; /* 改行を反映 */
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    nav {
+        display: block;
+        text-align: center;
+    }
+
+    nav a {
+        display: block;
+        width: 100%;
+        padding: 12px;
+    }
+
+    form {
+        grid-template-columns: 1fr; /* 小さい画面では1列に */
+    }
+
+    button {
+        width: 100%; /* ボタンを全幅に */
+    }
+}
+
+    </style>
 </head>
 <body>
 <header>
-    <h1>食材マネージャー</h1>
-    <div>
-        <span>ユーザー: {{ username }}</span>
-        <a href="{{ url_for('views.logout') }}">ログアウト</a>
-    </div>
-    <nav>
-        <a href="/">ホーム</a>
-        <a href="/syokuzai" class="active">食材登録</a>
-        <a href="/list_syokuzai">レシピ選択</a>
-        <a href="/history">一覧</a>
-    </nav>
+    <h1>
+        <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+          今日レシ
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="今日レシのロゴ" style="height: 40px; margin-left: 8px;">
+        </a>
+      </h1>      
+  <div class="user-info">
+    <span>ユーザー: {{ username }}</span>
+    <a href="{{ url_for('views.logout') }}">ログアウト</a>
+  </div>
 </header>
-
+<nav>
+  <a href="/">ホーム</a>
+  <a href="/syokuzai" class="active">食材登録</a>
+  <a href="/list_syokuzai">レシピ提案</a>
+  <a href="/history">一覧</a>
+</nav>
 <main>
     <h2>食材を追加してください</h2>
-
+ 
     <form method="POST" action="/syokuzai">
         <!-- 動的にカテゴリを生成 -->
         {% for category, items in categories.items() %}
@@ -37,7 +248,7 @@
             </select>
         </div>
         {% endfor %}
-
+ 
         <div class="submit-button">
             <button type="submit">登録</button>
         </div>

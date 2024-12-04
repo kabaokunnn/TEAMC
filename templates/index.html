@@ -2,22 +2,152 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>食材マネージャー</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; /* 薄い灰色 */
+    color: #333;
+  }
+ 
+  header {
+    background-color: #d3e5ff; /* 明るい青 */
+    color: #333;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+ 
+  header h1 {
+    font-size: 36px;
+    margin: 0;
+    text-align: left;
+    flex-grow: 1;
+  }
+ 
+  header .user-info {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+  }
+ 
+  header .user-info span {
+    margin-right: 15px;
+  }
+ 
+  header .user-info a {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+  }
+ 
+  header .user-info a:hover {
+    text-decoration: underline;
+  }
+ 
+  nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #e8f0fe; /* 青 */
+    height: 70px;
+    align-items: center;
+  }
+ 
+  nav a {
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+    flex-grow: 1;
+    font-size: 18px;
+  }
+ 
+  nav a:hover {
+    background-color: #cde2ff; /* 明るい青 */
+  }
+ 
+  nav a.active {
+    background-color: #b3d0ff; /* 薄い緑 */
+    color: #333;
+  }
+ 
+  main {
+    padding: 20px;
+  }
+ 
+  section {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+ 
+  .column {
+    width: 48%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+ 
+  h3 {
+    color: #6699cc; /* 青紫 */
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+ 
+  .column div {
+    margin-bottom: 10px;
+  }
+ 
+  .column input[type="hidden"] {
+    display: none;
+  }
+ 
+  .column label {
+    font-size: 18px;
+  }
+ 
+  @media (max-width: 768px) {
+    .column {
+      width: 100%;
+    }
+ 
+    nav {
+      display: block;
+      text-align: center;
+    }
+ 
+    nav a {
+      display: block;
+      width: 100%;
+      padding: 12px;
+    }
+  }
+</style>
 </head>
 <body>
 <header>
-<h1>食材マネージャー</h1>
-<div>
-<span>ユーザー: {{ username }}</span>
-<a href="{{ url_for('views.logout') }}">ログアウト</a>
-</div>
+  <h1>
+    <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+      今日レシ
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="今日レシのロゴ" style="height: 40px; margin-left: 8px;">
+    </a>
+  </h1>    
+  <div class="user-info">
+    <span>ユーザー: {{ username }}</span>
+    <a href="{{ url_for('views.logout') }}">ログアウト</a>
+  </div>
 </header>
 <nav>
-<a href="/" class="active">ホーム</a>
-<a href="/syokuzai">食材登録</a>
-<a href="/list_syokuzai">食材選択</a>
-<a href="/history">一覧</a>
+  <a href="/" class="active">ホーム</a>
+  <a href="/syokuzai">食材登録</a>
+  <a href="/list_syokuzai">レシピ提案</a>
+  <a href="/history">履歴</a>
 </nav>
 <main>
 <section>
@@ -37,14 +167,14 @@
 <div class="column">
 <h3>お気に入り料理</h3>
 {% if favorite_recipes %}
-        {% for recipe in favorite_recipes %}
-            <div>
-                <label>{{ recipe.recipe_name }}</label>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>お気に入りのレシピはありません。</p>
-    {% endif %}
+    {% for recipe in favorite_recipes %}
+    <div>
+        <label>{{ recipe.recipe_name }}</label>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>お気に入りのレシピはありません。</p>
+{% endif %}
 </div>
 </section>
 </main>

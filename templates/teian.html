@@ -4,22 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>レシピ提案</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9; /* 薄い灰色 */
+            color: #333;
+            text-align: center;
+        }
+ 
+        header {
+            background-color: #d3e5ff; /* 明るい青 */
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+ 
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+ 
+        header div {
+            display: flex;
+            align-items: center;
+        }
+ 
+        header div span,
+        header div a {
+            color: #333;
+            font-size: 16px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+ 
+        header div a:hover {
+            text-decoration: underline;
+        }
+ 
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #e8f0fe; /* 青 */
+            height: 70px;
+            align-items: center;
+        }
+ 
+        nav a {
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            flex-grow: 1;
+            font-size: 18px;
+        }
+ 
+        nav a:hover {
+            background-color: #cde2ff; /* ホバー時の明るい青 */
+        }
+ 
+        nav a.active {
+            background-color: #b3d0ff; /* 現在のページを示す薄い緑 */
+            color: #333;
+        }
+ 
+        main {
+            padding: 20px;
+        }
+ 
+        .recipe-container {
+            margin-top: 20px;
+        }
+ 
+        .recipe-card {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            margin: 20px auto;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+ 
+        .recipe-card h3 {
+            font-size: 24px;
+            color: #6a11cb; /* 明るい紫 */
+            text-align: center;
+            margin-bottom: 10px;
+        }
+ 
+        .back-home-button {
+            margin-top: 20px;
+        }
+ 
+        .back-home-button a {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* 緑 */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+ 
+        .back-home-button a:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>提案されたレシピ</h1>
+        <h1>
+            <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+              今日レシ
+              <img src="{{ url_for('static', filename='images/logo.png') }}" alt="今日レシのロゴ" style="height: 40px; margin-left: 8px;">
+            </a>
+          </h1>          
         <div>
             <span>ユーザー: {{ username }}</span>
             <a href="{{ url_for('views.logout') }}">ログアウト</a>
         </div>
     </header>
     <nav>
-        <a href="/" class="active">ホーム</a>
+        <a href="/index">ホーム</a>
         <a href="/syokuzai">食材登録</a>
-        <a href="/list_syokuzai">食材選択</a>
+        <a href="/list_syokuzai" class="active">レシピ提案</a>
         <a href="/history">一覧</a>
-        </nav>
+    </nav>
     <main>
         <div class="recipe-container">
             {% for recipe in recipe_suggestions.split("\n\n") if recipe.strip() %}
@@ -27,19 +141,15 @@
                 {% set lines = recipe.split("\n") %}
                 <h3>{{ lines[0] }}</h3> <!-- レシピタイトル -->
                 {% for line in lines[1:] %}
-                    {% if line.startswith('**材料:**') or line.startswith('**作り方:**') %}
-                        <p class="section-title"><strong>{{ line[2:-2] }}</strong></p> <!-- 「材料」と「作り方」を強調 -->
-                    {% else %}
-                        <p>{{ line }}</p>
-                    {% endif %}
+                    <p>{{ line }}</p> <!-- 区分けせずにそのまま表示 -->
                 {% endfor %}
             </div>
             {% endfor %}
         </div>
-
+ 
         <!-- HOMEに戻るボタン -->
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="{{ url_for('views.home') }}" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">HOMEに戻る</a>
+        <div class="back-home-button">
+            <a href="{{ url_for('views.home') }}">HOMEに戻る</a>
         </div>
     </main>
 </body>

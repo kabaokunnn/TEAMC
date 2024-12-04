@@ -3,19 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン</title>
-<link rel="stylesheet" href="styles.css">
+<style>
+  body {
+    font-family: 'Comic Sans MS', sans-serif; /* コミカルなフォント */
+    background: linear-gradient(45deg, #cde2ff, #b3d0ff); /* 明るいグラデーション背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+  }
+ 
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 36px;
+    color: #000; /* フォントの色を黒に変更 */
+    animation: bounce 1.5s ease infinite; /* バウンスアニメーション */
+  }
+ 
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+    }
+    25% {
+      transform: translateY(-10px);
+    }
+    50% {
+      transform: translateY(0);
+    }
+    75% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+ 
+  label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #000; /* 黒いフォント */
+  }
+ 
+  input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 18px;
+    border: 2px solid rgba(0, 0, 0, 0.6); /* 黒に近い透明感のある境界線 */
+    border-radius: 20px;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.2); /* 半透明背景 */
+    color: #000; /* 黒いテキスト */
+  }
+ 
+  input::placeholder {
+    color: rgba(0, 0, 0, 0.6); /* プレースホルダーも黒っぽい色に */
+  }
+ 
+  button {
+    width: 100%;
+    padding: 14px;
+    background-color: #1a11cb;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+ 
+  button:hover {
+    transform: scale(1.1);
+    background-color: #2575fc; /* クリック時の色 */
+  }
+ 
+  a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #000; /* 黒いフォント */
+    font-size: 18px;
+    font-weight: bold;
+  }
+ 
+  a:hover {
+    color: cornflowerblue;
+    text-decoration: underline;
+  }
+ 
+  .login-container {
+    max-width: 400px;
+    width: 90%;
+    padding: 20px;
+    background: transparent; /* 背景を透明に変更 */
+    border-radius: 15px;
+    box-shadow: none; /* 影を削除 */
+  }
+</style>
 </head>
 <body>
-<h2>ログイン</h2>
-<form method="POST">
-<label>メールアドレス:</label>
-<input type="text" name="email" required>
-<br>
-<label>パスワード:</label>
-<input type="password" name="password" required>
-<br>
-<button type="submit">ログイン</button>
-</form>
-<a href="{{ url_for('views.register') }}">新規登録はこちら</a>
+<div class="login-container">
+  <h2>✨ ログイン ✨</h2>
+  <form method="POST">
+    <label>📧 メールアドレス:</label>
+    <input type="text" name="email" placeholder="例: sample@example.com" required>
+    <label>🔒 パスワード:</label>
+    <input type="password" name="password" placeholder="パスワードを入力" required>
+    <button type="submit">ログイン</button>
+  </form>
+  <a href="{{ url_for('views.register') }}">🎉 新規登録はこちら</a>
+</div>
 </body>
 </html>

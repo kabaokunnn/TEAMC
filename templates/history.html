@@ -4,21 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>履歴</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9; /* 薄い灰色 */
+            color: #333;
+        }
+ 
+        header {
+            background-color: #d3e5ff; /* グラデーション開始 */
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+ 
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+            text-align: left;
+            flex-grow: 1;
+        }
+ 
+        header div {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+ 
+        header div span {
+            margin-right: 15px;
+        }
+ 
+        header div a {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+        }
+ 
+        header div a:hover {
+            text-decoration: underline;
+        }
+ 
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #e8f0fe; /* 紫 */
+            height: 70px;
+            align-items: center;
+        }
+ 
+        nav a {
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            flex-grow: 1;
+            font-size: 18px;
+        }
+ 
+        nav a:hover {
+            background-color: #cde2ff; /* 濃い青 */
+        }
+ 
+        nav a.active {
+            background-color: #b3d0ff; /* 緑 */
+            color: #333;
+        }
+ 
+        main {
+            padding: 20px;
+        }
+ 
+        h2 {
+            font-size: 24px;
+            color: #6699cc; /* 紫 */
+            margin-bottom: 20px;
+        }
+ 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+ 
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+ 
+        table th {
+            background-color: #cde2ff; /* 紫 */
+            color: #333;
+        }
+ 
+        table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+ 
+        table input[type="checkbox"] {
+            cursor: pointer;
+        }
+ 
+        button {
+            background-color: #d3e5ff;  /* 紫 */
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+ 
+        button:hover {
+            background-color: #cde2ff; /* 濃い青 */
+        }
+ 
+        @media (max-width: 768px) {
+            nav {
+                display: block;
+                text-align: center;
+            }
+ 
+            nav a {
+                display: block;
+                width: 100%;
+                padding: 12px;
+            }
+ 
+            table {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
 <header>
-    <h1>履歴</h1>
+    <h1>
+        <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+          今日レシ
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="今日レシのロゴ" style="height: 40px; margin-left: 8px;">
+        </a>
+      </h1>      
     <div>
         <span>ユーザー: {{ username }}</span>
         <a href="{{ url_for('views.logout') }}">ログアウト</a>
     </div>
-    <nav>
-        <a href="{{ url_for('views.home') }}">ホーム</a>
-        <a href="{{ url_for('views.syokuzai') }}">材料登録</a>
-        <a href="{{ url_for('views.list_syokuzai') }}">レシピ提案</a>
-        <a href="{{ url_for('views.history') }}" class="active">履歴</a>
-    </nav>
 </header>
+<nav>
+    <a href="/">ホーム</a>
+    <a href="/syokuzai">食材登録</a>
+    <a href="/list_syokuzai">レシピ提案</a>
+    <a href="/history" class="active">履歴</a>
+</nav>
 <main>
     <h2>履歴一覧</h2>
     <table>

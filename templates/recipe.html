@@ -4,19 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>レシピ提案</title>
-    <h1>食材マネージャー</h1>
-    <div>
-        <span>ユーザー: {{ username }}</span>
-        <a href="{{ url_for('views.logout') }}">ログアウト</a>
-    </div>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9; /* 薄い灰色 */
+            color: #333;
+        }
+ 
+        header {
+            background-color: #d3e5ff; /* 明るい青 */
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+ 
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+            text-align: left;
+            flex-grow: 1;
+        }
+ 
+        header .user-info {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+ 
+        header .user-info span {
+            margin-right: 15px;
+        }
+ 
+        header .user-info a {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+        }
+ 
+        header .user-info a:hover {
+            text-decoration: underline;
+        }
+ 
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #e8f0fe; /* 明るい青 */
+            height: 70px;
+            align-items: center;
+        }
+ 
+        nav a {
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            flex-grow: 1;
+            font-size: 18px;
+        }
+ 
+        nav a:hover {
+            background-color: #cde2ff; /* 明るい青 */
+        }
+ 
+        nav a.active {
+            background-color: #b3d0ff; /* 薄い緑 */
+            color: #333;
+        }
+ 
+        main {
+            padding: 20px;
+        }
+ 
+        h1 {
+            color: #333 ; /* 明るい紫 */
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+ 
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+ 
+        form div {
+            margin-bottom: 15px;
+        }
+ 
+        form label {
+            font-size: 18px;
+            color: #333;
+        }
+ 
+        button {
+            background-color: #b3d0ff; /* 緑 */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+            width: 85px;
+            display: block;
+            margin: 0 auto;
+        }
+ 
+        button:hover {
+            background-color: #b3d0ff; /* 濃い緑 */
+        }
+ 
+        @media (max-width: 768px) {
+            nav {
+                display: block;
+                text-align: center;
+            }
+ 
+            nav a {
+                display: block;
+                width: 100%;
+                padding: 12px;
+            }
+        }
+    </style>
 </head>
-<nav>
-    <a href="/">ホーム</a>
-    <a href="/syokuzai">食材登録</a>
-    <a href="/list_syokuzai">食材選択</a>
-    <a href="/history">一覧</a>
-</nav>
 <body>
+<header>
+    <h1>
+        <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+          今日レシ
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="今日レシのロゴ" style="height: 40px; margin-left: 8px;">
+        </a>
+      </h1>      
+  <div class="user-info">
+    <span>ユーザー: {{ username }}</span>
+    <a href="{{ url_for('views.logout') }}">ログアウト</a>
+  </div>
+</header>
+<nav>
+  <a href="/">ホーム</a>
+  <a href="/syokuzai">食材登録</a>
+  <a href="/list_syokuzai" class="active">レシピ提案</a>
+  <a href="/history">履歴</a>
+</nav>
+<main>
     <h1>レシピ提案</h1>
     <form method="POST" action="/teian">
         {% for selected in selected_ingredients %}
@@ -25,7 +159,8 @@
             <label>{{ selected.ingredient.name }}</label>
         </div>
         {% endfor %}
-        <button type="submit">提案を見る</button>
+        <button type="submit">提案</button>
     </form>
+</main>
 </body>
 </html>

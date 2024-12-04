@@ -188,7 +188,7 @@ def history():
 
 # Geminiを使用してレシピを生成
 def get_recipe_from_gemini(ingredients_list):
-    prompt = f"以下の食材を使ったレシピを1個提案してください。料理名と材料と作り方で大丈夫です。 {', '.join(ingredients_list)}"
+    prompt = f"以下の食材を使ったレシピを1個提案してください。料理名と材料と作り方で大丈夫です。{', '.join(ingredients_list)}"
     gemini_pro = genai.GenerativeModel("gemini-pro")
     response = gemini_pro.generate_content(prompt)
 

@@ -4,19 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>選択された食材一覧</title>
-    <h1>食材マネージャー</h1>
-<div>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9; /* 薄い灰色 */
+            color: #333;
+        }
+ 
+        header {
+    background-color: #d3e5ff; /* 明るい青 */
+    color: #333;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+ 
+  header h1 {
+    font-size: 36px;
+    margin: 0;
+    text-align: left;
+    flex-grow: 1;
+  }
+ 
+  header .user-info {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+  }
+ 
+  header .user-info span {
+    margin-right: 15px;
+  }
+ 
+  header .user-info a {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+  }
+ 
+  header .user-info a:hover {
+    text-decoration: underline;
+  }
+ 
+        
+ 
+        main {
+            padding: 20px;
+        }
+ 
+        h1 {
+            color: #333; /* 明るい紫 */
+        }
+        nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #e8f0fe; /* 青 */
+    height: 70px;
+    align-items: center;
+  }
+ 
+  nav a {
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+    flex-grow: 1;
+    font-size: 18px;
+  }
+ 
+  nav a:hover {
+    background-color: #cde2ff; /* 明るい青 */
+  }
+ 
+  nav a.active {
+    background-color: #b3d0ff; /* 薄い緑 */
+    color: #333;
+  }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+ 
+        li {
+            margin-bottom: 15px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+ 
+        .submit-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+ 
+        .submit-button a {
+            background-color: #b3d0ff; /* 水色 */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+ 
+        .submit-button a:hover {
+            background-color: #b3d0ff;
+        }
+ 
+        button {
+            background-color: #ff4c4c; /* 赤 */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+ 
+        button:hover {
+            background-color: #e04343;
+        }
+ 
+        @media (max-width: 768px) {
+            nav {
+                display: block;
+                text-align: center;
+            }
+ 
+            nav a {
+                display: block;
+                width: 100%;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+  <h1>
+    <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+      今日レシ
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="今日レシのロゴ" style="height: 40px; margin-left: 8px;">
+    </a>
+  </h1>  
+  <div class="user-info">
     <span>ユーザー: {{ username }}</span>
     <a href="{{ url_for('views.logout') }}">ログアウト</a>
-</div>
-</head>
+  </div>
+</header>
 <nav>
-    <a href="/">ホーム</a>
-    <a href="/syokuzai">食材登録</a>
-    <a href="/list_syokuzai" class="active">食材選択</a>
-    <a href="/history">一覧</a>
+  <a href="/">ホーム</a>
+  <a href="/syokuzai">食材登録</a>
+  <a href="/list_syokuzai" class="active">レシピ提案</a>
+  <a href="/history">履歴</a>
 </nav>
-<body>
+<main>
     <h1>登録された食材一覧</h1>
     <ul>
         {% for selected in selected_ingredients %}
@@ -28,6 +172,9 @@
         </li>
         {% endfor %}
     </ul>
-    <a href="/recipe">提案</a>
+    <div class="submit-button">
+        <a href="/recipe">提案</a>
+    </div>
+</main>
 </body>
 </html>
