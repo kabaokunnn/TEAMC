@@ -20,7 +20,6 @@
     margin-bottom: 20px;
     font-size: 24px;
     color: #000;
-    animation: rotate 2s infinite linear;
   }
 
   @keyframes rotate {
@@ -98,19 +97,19 @@
 <div class="register-container">
   <h2>🎉 新規登録 🎉</h2>
   <form method="POST">
-    <label>ユーザー名:</label>
+    <label>ユーザー名</label>
     <input type="text" name="username" required>
-    <label>メールアドレス:</label>
+    <label>メールアドレス</label>
     <input type="email" name="email" required>
-    <label>パスワード:</label>
+    <label>パスワード</label>
     <input type="password" name="password" required>
-    <label>年齢:</label>
+    <label>年齢</label>
     <select name="age">
-      {% for i in range(20, 81) %}
+      {% for i in range(16, 81) %}
         <option value="{{ i }}">{{ i }}</option>
       {% endfor %}
     </select>
-    <label>性別:</label>
+    <label>性別</label>
     <select name="gender">
       <option value="M">男性</option>
       <option value="F">女性</option>
