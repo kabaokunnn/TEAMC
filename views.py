@@ -3,7 +3,7 @@ import os
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User, Ingredient, SelectedIngredient, Recipe
+from models import db, User, Ingredient, SelectedIngredient, Recipe, RecipeSuggestion
 from datetime import datetime
 
 views = Blueprint('views', __name__)
@@ -196,6 +196,13 @@ def get_recipe_from_gemini(ingredients_list):
         return response.text
     else:
         return "レシピの生成に失敗しました。"
+    
+# 料理詳細ページのビュー
+@views.route('/recipe/<int:recipe_id>')
+def recipe_details(recipe_id):
+    recipe = Recipe.query.get_or_404(recipe_id)
+    recipe_suggestions = RecipeSuggestion.query.filter_by(ingredient_id=recipe.id).all()
+    return render_template('recipe_details.html', recipe=recipe, recipe_suggestions=recipe_suggestions)
 
 # ログアウト
 @views.route('/logout')

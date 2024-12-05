@@ -40,3 +40,15 @@ class Recipe(db.Model):
     is_favorite = db.Column(db.Boolean, default=False)
 
     user = db.relationship('User', backref='recipes', lazy=True)
+
+class RecipeSuggestion(db.Model):
+    __tablename__ = 'recipe_suggestions'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120))
+    ingredients = db.Column(db.String(500))
+    steps = db.Column(db.Text)
+    recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.id'))  # Recipeとの関連
+
+    recipe = db.relationship('Recipe', backref='suggestions', lazy=True)  # レシピとのリレーションシップ
+    ingredient_id = db.Column(db.Integer, db.ForeignKey('ingredient.id'))  # Ingredientとの関連
+    ingredient = db.relationship('Ingredient', backref='recipe_suggestions', lazy=True)

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レシピ提案</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9; /* 薄い灰色 */
+            color: #333;
+            text-align: center;
+        }
+ 
+        header {
+            background-color: #d3e5ff; /* 明るい青 */
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+ 
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+ 
+        header div {
+            display: flex;
+            align-items: center;
+        }
+ 
+        header div span,
+        header div a {
+            color: #333;
+            font-size: 16px;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+ 
+        header div a:hover {
+            text-decoration: underline;
+        }
+ 
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #e8f0fe; /* 青 */
+            height: 70px;
+            align-items: center;
+        }
+ 
+        nav a {
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+            flex-grow: 1;
+            font-size: 18px;
+        }
+ 
+        nav a:hover {
+            background-color: #cde2ff; /* ホバー時の明るい青 */
+        }
+ 
+        nav a.active {
+            background-color: #b3d0ff; /* 現在のページを示す薄い緑 */
+            color: #333;
+        }
+ 
+        main {
+            padding: 20px;
+        }
+ 
+        .recipe-container {
+            margin-top: 20px;
+        }
+ 
+        .recipe-card {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            margin: 20px auto;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+ 
+        .recipe-card h3 {
+            font-size: 24px;
+            color: #6a11cb; /* 明るい紫 */
+            text-align: center;
+            margin-bottom: 10px;
+        }
+ 
+        .back-home-button {
+            margin-top: 20px;
+        }
+ 
+        .back-home-button a {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* 緑 */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+ 
+        .back-home-button a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>
+            <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+              今日レシ
+              <img src="{{ url_for('static', filename='images/logo.png') }}" alt="今日レシのロゴ" style="height: 40px; margin-left: 8px;">
+            </a>
+          </h1>          
+        <div>
+            <span>ユーザー: {{ username }}</span>
+            <a href="{{ url_for('views.logout') }}">ログアウト</a>
+        </div>
+    </header>
+    <nav>
+        <a href="/index">ホーム</a>
+        <a href="/syokuzai">食材登録</a>
+        <a href="/list_syokuzai">レシピ提案</a>
+        <a href="/history">履歴</a>
+    </nav>
+    <main>
+        <div class="recipe-container">
+            {% for suggestion in recipe_suggestions %}
+            <div class="recipe-card">
+                <h3>{{ suggestion.title }}</h3> <!-- レシピタイトル -->
+                <p><strong>材料:</strong> {{ suggestion.ingredients }}</p>
+                <p><strong>手順:</strong> {{ suggestion.steps }}</p>
+            </div>
+            {% endfor %}
+        </div>
+ 
+        <!-- HOMEに戻るボタン -->
+        <div class="back-home-button">
+            <a href="{{ url_for('views.home') }}">HOMEに戻る</a>
+        </div>
+    </main>
+</body>
+</html>
