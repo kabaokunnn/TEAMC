@@ -137,7 +137,8 @@ select {
     padding: 10px 20px;
     font-size: 18px;
     background-color: #b3d0ff; /* 緑 */
-    color: white;
+    color: #000;
+;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -222,7 +223,7 @@ select {
         </a>
       </h1>      
   <div class="user-info">
-    <span>ユーザー: {{ username }}</span>
+    <span>ユーザー: {{ username }}さん</span>
     <a href="{{ url_for('views.logout') }}">ログアウト</a>
   </div>
 </header>
